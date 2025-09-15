@@ -46,8 +46,7 @@ plt.title("Top 10 Countries by Confirmed Cases")
 plt.savefig("Graph_Screenshots/01_top10_confirmed.png")
 plt.show()
 ```
-
-![Uploading 01_top10_confirmed.png…]()
+<img width="1000" height="600" alt="01_top10_confirmed" src="https://github.com/user-attachments/assets/e6ff15df-0a43-4978-92c6-44b2733d0387" />
 
 ---
 
@@ -63,13 +62,13 @@ plt.title("Top 10 Countries by Deaths")
 plt.savefig("Graph_Screenshots/02_top10_deaths.png")
 plt.show()
 ```
-<img width="1000" height="600" alt="02_top10_deaths" src="https://github.com/user-attachments/assets/a524e7d5-2789-4371-b32d-9ee06ec0de96" />
+<img width="1000" height="600" alt="02_top10_deaths" src="https://github.com/user-attachments/assets/4db3e4e4-2438-4f97-9e88-02523e9079ca" />
 
 ---
+### 03 — Confirmed vs Deaths (Scatter Plot)
+**Purpose:** Relationship between confirmed cases and deaths.  
+**Insight:** Clear positive correlation (more cases → more deaths).  
 
-### 03 — Distribution of Confirmed Cases (Histogram)
-**Purpose:** See how cases are distributed across all countries.  
-**Insight:** Shows skewness — majority countries have low counts, few have very high.  
 ```python
 plt.figure(figsize=(8,6))
 sns.scatterplot(data=df, x="Confirmed", y="Deaths", size="Confirmed", hue="Deaths", alpha=0.6, palette="viridis")
@@ -82,9 +81,10 @@ plt.show()
 
 ---
 
-### 04 — Distribution of Deaths (Histogram)
-**Purpose:** Understand spread of deaths per country.  
-**Insight:** Few countries contribute to the majority of global deaths.  
+### 04 — Distribution of Confirmed Cases (Histogram)
+**Purpose:** See how cases are distributed across all countries.  
+**Insight:** Shows skewness — majority countries have low counts, few have very high.  
+```python
 ```python
 plt.figure(figsize=(8,6))
 sns.histplot(df["Confirmed"], bins=40, kde=True, color="blue")
@@ -95,10 +95,9 @@ plt.show()
 <img width="800" height="600" alt="04_distribution_confirmed" src="https://github.com/user-attachments/assets/fc96f02b-c461-444a-8bb4-b6ab77525e47" />
 
 ---
-
-### 05 — Confirmed vs Deaths (Scatter Plot)
-**Purpose:** Relationship between confirmed cases and deaths.  
-**Insight:** Clear positive correlation (more cases → more deaths).  
+### 05 — Distribution of Deaths (Histogram)
+**Purpose:** Understand spread of deaths per country.  
+**Insight:** Few countries contribute to the majority of global deaths.  
 ```python
 plt.figure(figsize=(8,6))
 sns.histplot(df["Deaths"], bins=40, kde=True, color="red")
@@ -111,9 +110,11 @@ plt.show()
 
 ---
 
-### 06 — Active vs Confirmed (Joint/Regression Plot)
-**Purpose:** Check trend between active cases and total confirmed.  
-**Insight:** Larger outbreaks maintain high active cases.  
+
+### 06 — Case Fatality Rate by WHO Region (Box Plot)
+**Purpose:** Compare fatality rates across WHO regions.  
+**Insight:** Some regions show higher variability and outliers.  
+
 ```python
 plt.figure(figsize=(8,6))
 sns.boxplot(y=df["WHO Region"], x=df["Deaths"]/df["Confirmed"]*100, palette="coolwarm")
@@ -128,9 +129,9 @@ plt.show()
 
 ---
 
-### 07 — Case Fatality Rate by WHO Region (Box Plot)
-**Purpose:** Compare fatality rates across WHO regions.  
-**Insight:** Some regions show higher variability and outliers.  
+### 07 — Recovery Rate by WHO Region (Violin Plot)
+**Purpose:** Visualize density of recovery rates by region.  
+**Insight:** Regions differ in recovery efficiency.  
 ```python
 df["Recovery Rate"] = df["Recovered"] / df["Confirmed"] * 100
 plt.figure(figsize=(8,6))
@@ -143,10 +144,10 @@ plt.show()
 <img width="800" height="600" alt="07_recovery_rate" src="https://github.com/user-attachments/assets/8d46cdc1-199a-40b6-8bfd-1d4863238bb6" />
 
 ---
+### 08 — Correlation Heatmap
+**Purpose:** Show correlation between confirmed, deaths, recovered, and active cases.  
+**Insight:** Confirmed is strongly correlated with deaths and recovered.  
 
-### 08 — Recovery Rate by WHO Region (Violin Plot)
-**Purpose:** Visualize density of recovery rates by region.  
-**Insight:** Regions differ in recovery efficiency.  
 ```python
 plt.figure(figsize=(6,4))
 sns.heatmap(df[["Confirmed","Deaths","Recovered","Active"]].corr(), annot=True, cmap="Blues")
@@ -159,9 +160,10 @@ plt.show()
 
 ---
 
-### 09 — Correlation Heatmap
-**Purpose:** Show correlation between confirmed, deaths, recovered, and active cases.  
-**Insight:** Confirmed is strongly correlated with deaths and recovered.  
+
+### 09 — Active vs Confirmed (Joint/Regression Plot)
+**Purpose:** Check trend between active cases and total confirmed.  
+**Insight:** Larger outbreaks maintain high active cases.  
 ```python
 sns.jointplot(data=df, x="Confirmed", y="Active", kind="reg", height=7, color="green")
 plt.savefig("Graph_Screenshots/09_active_vs_confirmed.png")
